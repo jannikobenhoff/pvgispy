@@ -15,7 +15,7 @@ class TestDaily(unittest.TestCase):
 
         self.assertTrue(daily.total_irradiance() == 735.3399999999999, "Not equal.")
 
-        print(daily.irradiance(as_list=True))
+        print(daily.irradiance())
 
 
 class TestTMY(unittest.TestCase):

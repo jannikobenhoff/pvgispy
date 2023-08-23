@@ -2,7 +2,7 @@ from .base import BaseAPI
 
 
 class Monthly(BaseAPI):
-    ENDPOINT = "tmy"
+    ENDPOINT = "MRcalc"
 
     def __init__(self, lat, lon, **kwargs):
         """

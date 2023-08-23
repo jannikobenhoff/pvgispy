@@ -29,7 +29,7 @@ from pvgispy import Daily
 daily = Daily(lat=48, lon=9, month=1)
 
 print(daily.irradiance(as_list=True))
-
+# --> {'G(i)': 735.33, 'Gb(i)': 223.38, 'Gd(i)': 511.95}
 # Raw data
 print(daily.data)
 ```
