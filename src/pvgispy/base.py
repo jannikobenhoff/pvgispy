@@ -21,7 +21,6 @@ class BaseAPI:
 
     @property
     def params(self):
-        print(self._params)
         return self._params
 
     @params.setter
@@ -39,7 +38,6 @@ class BaseAPI:
         """
         Fetch data from the API.
         """
-        print("---> FETCHING...")
         response = requests.get(self._get_endpoint(), params=self.params)
         self.data = self._handle_response(response)
 
@@ -53,14 +51,15 @@ class BaseAPI:
             self._handle_error(response)
 
         # Always use json, only let user decide for export
-        if self._params["outputformat"] == "csv":
-            return response.text
-        elif self._params["outputformat"] == "json":
-            return response.json()
-        elif self._params["outputformat"] == "basic":
-            return response.json()
-        else:
-            raise Exception(f"Invalid Outputformat.")
+        return response.json()
+        # if self._params["outputformat"] == "csv":
+        #     return response.text
+        # elif self._params["outputformat"] == "json":
+        #     return response.json()
+        # elif self._params["outputformat"] == "basic":
+        #     return response.json()
+        # else:
+        #     raise Exception(f"Invalid Outputformat.")
 
     def _handle_error(self, response):
         """

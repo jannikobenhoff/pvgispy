@@ -100,7 +100,7 @@ class Hourly(BaseAPI):
             "optimalinclination": self._params.get("optimalinclination", None),
             "optimalangles": self._params.get("optimalangles", None),
             "components": self._params.get("components", None),
-            "outputformat": self._params.get("outputformat", 0),
+            "outputformat": self._params.get("outputformat", "json"),
             "browser": self._params.get("browser", 0)
         }
 
@@ -126,34 +126,21 @@ class Hourly(BaseAPI):
 
     def yearly_pv_production(self):
         """
-        Calculates the total pv power production in W over a year.
+        Calculates the yearly pv power production in W for each year in data.
 
-        :return: p in W
+        :return: dict = {year: power}
         """
         if self.data is None:
             self.fetch_data()
 
         hourly = self.data["outputs"]["hourly"]
 
-        p = 0
+        p = {}
+        for year in range(self.startyear, self.endyear+1):
+            p[year] = 0
+
         for hour in hourly:
-            p += hour.get("P", 0)
-
-        return p
-
-    def monthly_pv_production(self):
-        """
-        Calculates the total pv power production in W over a month for a year.
-
-        :return: p in W
-        """
-        if self.data is None:
-            self.fetch_data()
-
-        hourly = self.data["outputs"]["hourly"]
-
-        p = 0
-        for hour in hourly:
-            p += hour.get("P", 0)
+            year = int(hour["time"][:4])
+            p[year] += hour.get("P", 0)
 
         return p

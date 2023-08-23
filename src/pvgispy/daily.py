@@ -4,7 +4,7 @@ from .base import BaseAPI
 class Daily(BaseAPI):
     ENDPOINT = "DRcalc"
 
-    def __init__(self, lat, lon, month, **kwargs):
+    def __init__(self, lat: float, lon: float, month: int, preload: bool = False, **kwargs):
         """
         Daily radiation for one day in a specific month.
         Calculated in a TMY.
@@ -39,6 +39,9 @@ class Daily(BaseAPI):
         self.month = month
         super().__init__(lat, lon, **kwargs)
 
+        if preload:
+            self.fetch_data()
+
     def _get_endpoint(self):
         """
         Returns the endpoint URL for the Daily Radiation API call.
@@ -70,7 +73,7 @@ class Daily(BaseAPI):
             "clearsky_2axis": self._params.get("clearsky_2axis", 0),
             "showtemperatures": self._params.get("showtemperatures", 0),
             "localtime": self._params.get("localtime", 0),
-            "outputformat": self._params.get("outputformat", 0),
+            "outputformat": self._params.get("outputformat", "json"),
             "browser": self._params.get("browser", 0)
         }
 

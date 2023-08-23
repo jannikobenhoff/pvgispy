@@ -49,7 +49,7 @@ class TMY(BaseAPI):
             "usehorizon": self._params.get("usehorizon", 1),
             "startyear": self._params.get("startyear", None),
             "endyear": self._params.get("endyear", None),
-            "outputformat": self._params.get("outputformat", 0),
+            "outputformat": self._params.get("outputformat", "json"),
             "browser": self._params.get("browser", 0)
         }
 
