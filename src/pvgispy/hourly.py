@@ -34,10 +34,10 @@ class Hourly(BaseAPI):
 
         if endyear < startyear:
             raise ValueError("Incorrect time period. The calculation period for this app should be at least 1 years.")
-        if startyear not in range(2005, 2020):
+        if startyear not in range(2005, 2023):
             raise ValueError("Incorrect start year. Please, enter an integer between 2005 and 2016.")
         self.startyear = startyear
-        if endyear not in range(2005, 2020):
+        if endyear not in range(2005, 2023):
             raise ValueError("Incorrect end year. Please, enter an integer between 2005 and 2016.")
         self.endyear = endyear
 

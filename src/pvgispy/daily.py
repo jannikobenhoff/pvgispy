@@ -64,7 +64,7 @@ class Daily(BaseAPI):
             "lon": self.lon,
             "month": self.month,
             "usehorizon": self._params.get("usehorizon", 1),
-            "raddatabase": self._params.get("raddatabase", "PVGIS-SARAH2"),
+            "raddatabase": self._params.get("raddatabase", "PVGIS-SARAH5"),
             "angle": self._params.get("angle", 0),
             "aspect": self._params.get("aspect", 0),
             "global": self._params.get("global", 1),
