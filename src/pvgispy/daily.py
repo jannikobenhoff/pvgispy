@@ -18,7 +18,7 @@ class Daily(BaseAPI):
         Optional parameters:
         :param usehorizon: (Optional) Calculate considering shadows from a high horizon. Default is 1 for "yes".
         :param userhorizon: (Optional) Height of the horizon at equidistant directions around the point of interest, in degrees. Starting at north and moving clockwise. The series '0,10,20,30,40,15,25,5' would mean the horizon height is 0° due north, 10° for north-east, 20° for east, 30° for south-east, etc.
-        :param raddatabase
+        :param raddatabase: Name of the radiation database. "PVGIS-SARAH" for Europe, Africa and Asia or "PVGIS-NSRDB" for the Americas between 60°N and 20°S, "PVGIS-ERA5" and "PVGIS-COSMO" for Europe (including high-latitudes), and "PVGIS-CMSAF" for Europe and Africa (will be deprecated)
         :param angle
         :param aspect
         :param global
@@ -64,7 +64,7 @@ class Daily(BaseAPI):
             "lon": self.lon,
             "month": self.month,
             "usehorizon": self._params.get("usehorizon", 1),
-            "raddatabase": self._params.get("raddatabase", "PVGIS-SARAH5"),
+            "raddatabase": self._params.get("raddatabase", "PVGIS-SARAH3"),
             "angle": self._params.get("angle", 0),
             "aspect": self._params.get("aspect", 0),
             "global": self._params.get("global", 1),

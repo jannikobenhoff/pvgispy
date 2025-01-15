@@ -34,26 +34,27 @@ class Hourly(BaseAPI):
 
         if endyear < startyear:
             raise ValueError("Incorrect time period. The calculation period for this app should be at least 1 years.")
-        if startyear not in range(2005, 2023):
-            raise ValueError("Incorrect start year. Please, enter an integer between 2005 and 2016.")
+        if startyear not in range(2005, 2024):
+            raise ValueError("Incorrect start year. Please, enter an integer between 2005 and 2023.")
         self.startyear = startyear
-        if endyear not in range(2005, 2023):
-            raise ValueError("Incorrect end year. Please, enter an integer between 2005 and 2016.")
+        if endyear not in range(2005, 2024):
+            raise ValueError("Incorrect end year. Please, enter an integer between 2005 and 2023.")
         self.endyear = endyear
 
-        if pvcalculation and peakpower is None:
-            raise ValueError("Invalid peak-power. If pvcalculation set True, peakpower can't be None.")
-        self.peakpower = peakpower
+        if pvcalculation:
+            if pvcalculation and peakpower is None:
+                raise ValueError("Invalid peak-power. If pvcalculation set True, peakpower can't be None.")
+            self.peakpower = peakpower
 
-        if pvcalculation and loss is None:
-            raise ValueError("Invalid loss. If pvcalculation set True, loss can't be None.")
-        if int(loss) not in range(0, 100):
-            raise ValueError("Invalid loss value. Please, enter a float between 0 and 100.")
-        self.loss = loss
+            if pvcalculation and loss is None:
+                raise ValueError("Invalid loss. If pvcalculation set True, loss can't be None.")
+            if int(loss) not in range(0, 100):
+                raise ValueError("Invalid loss value. Please, enter a float between 0 and 100.")
+            self.loss = loss
 
-        if pvtech not in ["crystSi", "CIS", "CdTe", "Unknown"]:
-            raise ValueError("Invalid PV Technology. Valid technologies are 'crystSi', 'CIS', 'CdTe', 'Unknown'")
-        self.pvtech = pvtech
+            if pvtech not in ["crystSi", "CIS", "CdTe", "Unknown"]:
+                raise ValueError("Invalid PV Technology. Valid technologies are 'crystSi', 'CIS', 'CdTe', 'Unknown'")
+            self.pvtech = pvtech
 
         if int(angle) not in range(0, 91):
             raise ValueError("Invalid angle. Please, enter a float between 0 and 90.")
@@ -86,14 +87,14 @@ class Hourly(BaseAPI):
             "lat": self.lat,
             "lon": self.lon,
             "usehorizon": self._params.get("usehorizon", 1),
-            "raddatabase": self._params.get("raddatabase", "PVGIS-SARAH2"),
+            "raddatabase": self._params.get("raddatabase", "PVGIS-SARAH3"),
             "startyear": self.startyear,
             "endyear": self.endyear,
             "pvcalculation": 1 if self.pvcalculation else 0,
-            "peakpower": self.peakpower,
-            "pvtechchoice": self.pvtech,
+            "peakpower": self.peakpower if self.pvcalculation else None,
+            "pvtechchoice": self.pvtech if self.pvcalculation else None,
             "mountingplace": self._params.get("mountingplace", None),
-            "loss": self.loss,
+            "loss": self.loss if self.pvcalculation else None,
             "trackingtype": self._params.get("trackingtype", None),
             "angle": self.angle,
             "aspect": self.aspect,
