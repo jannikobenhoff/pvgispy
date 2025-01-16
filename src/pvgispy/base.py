@@ -3,7 +3,8 @@ import requests
 
 
 class BaseAPI:
-    BASE_URL = "https://re.jrc.ec.europa.eu/api/v5_2/"
+    BASE_URL = "https://re.jrc.ec.europa.eu/api/v5_3/"
+    BASE_URL_V2 = "https://re.jrc.ec.europa.eu/api/v5_2/"
     BASE_URL_V1 = "https://re.jrc.ec.europa.eu/api/v5_1/"
 
     def __init__(self, lat: float, lon: float,  **kwargs):

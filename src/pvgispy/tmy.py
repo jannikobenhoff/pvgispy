@@ -12,6 +12,11 @@ class TMY(BaseAPI):
         :param lat: Latitude in decimal degrees (south is negative).
         :param lon: Longitude in decimal degrees (west is negative).
 
+        Optional parameters:
+        :param startyear: First year of the TMY. Availability depends on the temporal coverage of the radiation DB chosen. The default value is the first year of the DB chosen.
+        :param endyear: Final year of the TMY. Availability depends on the temporal coverage of the radiation DB chosen. The default value is the last year of the DB chosen. The period defined by startyear, endyear should be >= 10 years.
+        :param raddatabase: The Database used to calculate the tmy. either PVGIS-ERA5 or PVGIS-SARAH3, default is PVGIS-SARAH3.
+        
         Describes the various output variables from the API call:
 
         - `G(h)`: Global irradiance on the horizontal plane (units: W/m2).
@@ -50,7 +55,8 @@ class TMY(BaseAPI):
             "startyear": self._params.get("startyear", None),
             "endyear": self._params.get("endyear", None),
             "outputformat": self._params.get("outputformat", "json"),
-            "browser": self._params.get("browser", 0)
+            "browser": self._params.get("browser", 0),
+            "raddatabase": self._params.get("raddatabase", "PVGIS-SARAH3")
         }
 
         # Remove any parameters set to None
